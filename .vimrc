@@ -52,8 +52,8 @@ set smartindent
 set smarttab
 set expandtab     " Insert space characters whenever the tab key is pressed
 set tabstop=2     " Control the number of space characters that will be inserted when the tab key is pressed
-set shiftwidth=2  " Change the number of space characters inserted for indentation
-set softtabstop=2
+set shiftwidth=2  " Change the number of space characters inserted for indentation using `shift + >` or `shift + <`
+set softtabstop=2 " Let backspace delete spaces the same width as tabstop
 
 " ================ Show invisible characters ======================
 
@@ -63,8 +63,8 @@ set listchars=""
 set listchars+=trail:.
 set listchars+=extends:>
 set listchars+=precedes:<
+set listchars+=tab:▸\ 
 "set listchars+=eol:¬
-"set listchars+=tab:▸\
 
 " Toggle `set list`
 nmap <leader>l :set list!<CR>
@@ -118,7 +118,9 @@ set splitright
 
 " ================ Colors ======================
 
+set t_Co=256                    " iTerm 2 displays colours now!
 set background=dark
 let g:solarized_termcolors=256
+let g:solarized_termtrans=1       " Fixes vim transparency issue in iTerm 2
 colorscheme solarized
 

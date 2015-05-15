@@ -18,6 +18,12 @@ Bundle 'gmarik/vundle'
 " Bundles on github
 Bundle 'scrooloose/nerdtree'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'Shutnik/jshint2.vim'
+Bundle 'sjl/vitality.vim'
+Bundle 'cakebaker/scss-syntax.vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-ragtag'
 
 filetype plugin indent on     " required!
 
@@ -30,6 +36,7 @@ map <C-n> :NERDTreeToggle<CR>
 " ================ General Config ====================
 
 set relativenumber              " Faster vim commands, with relative line numbers
+set number                      " This turns on hybrid line number mode
 set ruler                       " Show row, column in status-bar
 set backspace=indent,eol,start  " Allow backspace in insert mode
 set history=1000                " Store lots of :cmdline history
@@ -78,8 +85,11 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
-autocmd BufNewFile,BufRead *.json set ft=javascript
+autocmd BufNewFile,BufRead *.json set ft=json
 autocmd BufNewFile,BufRead *.scss set ft=scss.css
+autocmd BufNewFile,BufRead *.bowerrc set ft=json
+autocmd BufNewFile,BufRead *.jshintrc set ft=json
+autocmd BufNewFile,BufRead *.ejs set ft=html
 
 " ================ Change key mappings ======================
 
@@ -123,4 +133,45 @@ set background=dark
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1       " Fixes vim transparency issue in iTerm 2
 colorscheme solarized
+
+
+" ================ Save when focus is lost ======================
+
+:au FocusLost * :wa
+
+" ================ Disable arrows ======================
+
+"noremap  <Up> ""
+"noremap! <Up> <Esc>
+"noremap  <Down> ""
+"noremap! <Down> <Esc>
+"noremap  <Left> ""
+"noremap! <Left> <Esc>
+"noremap  <Right> ""
+"noremap! <Right> <Esc>
+"
+"inoremap <BS> <Nop>
+"inoremap <Del> <Nop>
+
+"open a NERDTree automatically when vim starts up
+autocmd vimenter * NERDTree
+
+"open a NERDTree automatically when vim starts up if no files were specified?
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+"close vim if the only window left open is a NERDTree?
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"xml autocomplete plugin
+let g:ragtag_global_maps = 1
+
+
+"To quickly resize windows with a vertical split
+:map - <C-W>-
+:map + <C-W>+
+
+"To resize vertical windows quickly with ALT-SHIFT-[<>]
+:map <M-<> <C-W><
+:map <M->> <C-W>>
 

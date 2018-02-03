@@ -206,3 +206,94 @@ map <leader>i mmgg=G`m
 " setpaste
 map <Leader>p :set paste<CR><esc>"*]p:set nopaste<cr>
 
+
+
+
+
+
+" 2018-01 ---
+
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+
+set nocompatible
+
+" ================ General Config ====================
+
+set relativenumber              " Faster vim commands, with relative line numbers
+set number                      " This turns on hybrid line number mode
+set ruler                       " Show row, column in status-bar
+set backspace=indent,eol,start  " Allow backspace in insert mode
+set history=1000                " Store lots of :cmdline history
+set showcmd                     " Show incomplete cmds down the bottom
+set showmode                    " Show current mode down the bottom
+set nowrap                      " Do not wrap lines by default
+
+
+" ================ Turn Off Swap Files ==============
+
+set noswapfile
+set nobackup
+set nowb
+
+
+" ================ Indentation ======================
+
+set autoindent
+set smartindent
+set smarttab
+set expandtab     " Insert space characters whenever the tab key is pressed
+set tabstop=2     " Control the number of space characters that will be inserted when the tab key is pressed
+set shiftwidth=2  " Change the number of space characters inserted for indentation using `shift + >` or `shift + <`
+set softtabstop=2 " Let backspace delete spaces the same width as tabstop
+
+" ================ Show invisible characters ======================
+
+set list
+
+set listchars=""
+set listchars+=trail:.
+set listchars+=extends:>
+set listchars+=precedes:<
+set listchars+=tab:▸\ 
+"set listchars+=eol:¬
+
+" Toggle `set list`
+nmap <leader>l :set list!<CR>
+
+
+" ================ vim-plug  ======================
+call plug#begin('~/.vim/plugged')
+
+Plug 'kien/ctrlp.vim'
+Plug 'altercation/vim-colors-solarized', { 'set': 'all' }
+Plug 'vim-airline/vim-airline'
+Plug 'mattn/emmet-vim'
+
+call plug#end()
+
+" ================ Syntax highlighting ======================
+
+"syntax on
+syntax enable
+filetype plugin on
+set background=dark
+colorscheme solarized
+
+" ================ Airline ======================
+set laststatus=2
+
+" ================ Reach for Esc less  ======================
+:imap jj <Esc>
+
+" ================ Indent document the stay on same line  ======================
+map <Leader>i mmgg=G`m
+
+" ================ Paste from system clipboard at current indent level without
+" breaking indentation ======================
+map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<CR>
+
+" ================ Toggle off relativenumber in insert mode  ======================
+autocmd InsertEnter * :set number norelativenumber
+autocmd InsertLeave * :set relativenumber
+
